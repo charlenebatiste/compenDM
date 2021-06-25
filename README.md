@@ -19,7 +19,12 @@ CompenDM is a django app to take the place of pen and paper campaign journals. I
 * As a User I want to keep track of how many days before they can use a magic item again.
 
 ## Process Work
-1. Established data needs form backend.
+1. Established data needs for backend.
+2. Set up front end and back end applications in django and built basic Journal class. Migrated Journal class to test conection between front and backend.
+3. Set up login, signup and logout views, templates and urls for user so a user can start creating Journals.
+
+### ERD for data needs
+![ERD Screenshot](/assets/compenDM-ERD.png)
 
 ## Tech Stack
 - django
