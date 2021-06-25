@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<h1>Welcome back, {{ username }}</h1>
+
+<h2>Journals</h2>
+
+{%if journals%}
+    <p>{{ journal.title }}</p>
+{% else %}
+    <p>You have no journals yet.</p>
+    <p>Start a Journal</p>
+{% endif %}
+
+
+{% endblock %}
