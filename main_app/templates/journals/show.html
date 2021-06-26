@@ -1,9 +1,8 @@
 <!-- main_app/templates/index.html -->
 {% extends 'base.html' %}
-{% load static %}
 {% block content %}
 <div class="heading">
-    <h1>{{journal.title}}</h1>
+    <h1>{{journal.title}} Campaign Journal</h1>
 </div>
 <div>
     <a href="{% url 'journals_update' journal.id %}">Change Name</a> | 
@@ -11,17 +10,20 @@
 </div>
 <hr />
 <div>
-<h2>Entries</h2>
+<h2>Logs</h2>
 
 {%if entries%}
     {% for entry in entries %}
-        <p>{{ entry.name }}</p>
+        <p><a href="{% url 'entries_show' entry.id %}">{{ entry.name }}</a></p>
         <p>{{ entry.date }}</p>
+        <p><a href="{% url 'entry_update' entry.id %}">Edit Entry Info</a></p>
+        <p><a href="{% url 'entry_delete' entry.id %}">Delete Entry</a></p>
     {% endfor %}
     {% else %}
         <p>You have no entries yet.</p>
+        
 {% endif %}
-
+<p><a href="/entry/create">Create an entry</a></p>
 
 </div>
 </section>

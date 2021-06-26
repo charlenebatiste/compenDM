@@ -109,3 +109,28 @@ class JournalDelete(DeleteView):
     model = Journal
     success_url = '/'
 
+# CRUD FOR ENTRY MODEL
+
+def entries_show(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    return render(request, 'entries/show.html', {'entry': entry})
+
+class EntryCreate(CreateView):
+    model = Entry
+    fields = '__all__'
+    success_url = '/'
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect('/')
+
+class EntryUpdate(UpdateView):
+    model = Entry
+    fields = ['name', 'date']
+    success_url = '/'
+
+class EntryDelete(DeleteView):
+    model = Entry
+    success_url = '/'
