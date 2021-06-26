@@ -8,11 +8,16 @@
 <h2>Journals</h2>
 
 {%if journals%}
-    <p>{{ journal.title }}</p>
+{% for journal in journals %}
+    <p><a href="{% url 'journals_show' journal.id %}">{{ journal.title }}</a></p>
+{% endfor %}
 {% else %}
     <p>You have no journals yet.</p>
-    <p>Start a Journal</p>
-{% endif %}
+    {% endif %}
+    <div class="btn_container">
+        <a href="/journals/create" >Create a Campaign Journal</a>
+    </div>
+
 
 
 {% endblock %}
