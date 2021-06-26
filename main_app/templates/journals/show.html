@@ -5,6 +5,10 @@
 <div class="heading">
     <h1>{{journal.title}}</h1>
 </div>
+<div>
+    <a href="{% url 'journals_update' journal.id %}">Change Name</a> | 
+    <a href="{% url 'journals_delete' journal.id %}">DELETE Journal</a>
+</div>
 <hr />
 <div>Here is the journal content</div>
 
