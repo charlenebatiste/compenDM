@@ -1,12 +1,12 @@
 # CompendDM 
 
 ## Table of Contents
-* [General Info](#general-info)
-* [User Stories](#user-stories)
-* [Process Work](#process-work)
-* [Tech Stack](#tech-stack)
-* [Set Up](#set-up)
-* [Status](#status)
+* [General Info](#general-info) ℹ️
+* [User Stories](#user-stories) ❔
+* [Process Work](#process-work) 🤔
+* [Tech Stack](#tech-stack) 📚
+* [Set Up](#set-up) 🎬
+* [Status](#status) ⌛️
 
 
 ## General Info
@@ -22,18 +22,19 @@ CompenDM is a django app to take the place of pen and paper campaign journals. I
 1. Established data needs for backend.
 2. Set up front end and back end applications in django and built basic Journal class. Migrated Journal class to test conection between front and backend.
 3. Set up login, signup and logout views, templates and urls for user so a user can start creating Journals.
-4. Created protected views to all CRUD functions for Journal. Set up urls and templates.
+4. Created protected views to all CRUD functions for Journal. Set up urls and templates. Tested Journal CRUD.
 
 ### ERD for data needs
 ![ERD Screenshot](assets/compenDM-ERD.png)
 
 ## Tech Stack
 - django
+- Bootstrap v5.0
 
 ## Set Up
 1. Fork and Clone this respository to your local machine
-2. Install dependencies and set up your database.
-3. Make migrations and migrate models to django backend
+2. Set up your backend database.
+3. Make migrations and migrate models to django backend.
 4. Open the directory in your text editor of choice to view.
 
 ## Status

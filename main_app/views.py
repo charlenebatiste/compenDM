@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Journal
+from .models import Journal, Entry
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -76,7 +76,10 @@ def journals_index(request):
 
 def journals_show(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
-    data = { 'journal': journal }
+    entries = Entry.objects.all()
+    data = { 
+        'journal': journal,
+        'entries': entries }
     return render(request, 'journals/show.html', data)
 
 # forms - generic from django

@@ -10,8 +10,20 @@
     <a href="{% url 'journals_delete' journal.id %}">DELETE Journal</a>
 </div>
 <hr />
-<div>Here is the journal content</div>
+<div>
+<h2>Entries</h2>
 
+{%if entries%}
+    {% for entry in entries %}
+        <p>{{ entry.name }}</p>
+        <p>{{ entry.date }}</p>
+    {% endfor %}
+    {% else %}
+        <p>You have no entries yet.</p>
+{% endif %}
+
+
+</div>
 </section>
     
 {% endblock %}
