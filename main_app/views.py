@@ -76,7 +76,7 @@ def journals_index(request):
 
 def journals_show(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
-    entries = Entry.objects.all()
+    entries = Entry.objects.filter(journal=journal_id)
     data = { 
         'journal': journal,
         'entries': entries }
@@ -118,13 +118,20 @@ def entries_show(request, entry_id):
 class EntryCreate(CreateView):
     model = Entry
     fields = '__all__'
-    success_url = '/'
+    success_url = '/journals'
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
         self.object.user = self.request.user
-        self.object.save()
-        return HttpResponseRedirect('/')
+        print(self.object)
+        print(form.cleaned_data)
+        journals = Journal.objects.filter(user=self.request.user)
+        if form.cleaned_data['journal'] in journals:
+            journal = Journal.objects.get(title=form.cleaned_data['journal'])
+            print(journal.id)
+            self.object.save()
+            return HttpResponseRedirect('/journals/' + str(journal.id))
+        
 
 class EntryUpdate(UpdateView):
     model = Entry

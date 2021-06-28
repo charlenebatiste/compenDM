@@ -8,7 +8,7 @@ class Journal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
 class Entry(models.Model):
     name = models.CharField(max_length=75)
@@ -16,4 +16,11 @@ class Entry(models.Model):
     journal = models.ForeignKey(Journal, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.name
+        return str(self.name)
+
+class Note(models.Model):
+    content = models.TextField()
+    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.content)
