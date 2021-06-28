@@ -2,7 +2,27 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div>this is the entry show page</div>
-<p><a href="{% url 'entry_update' entry.id %}">Edit Entry Info</a></p>
-<p><a href="{% url 'entry_delete' entry.id %}">Delete Entry</a></p>
+<div class="row">
+    <div class="col">
+        {{entry.name}}
+    </div>
+    <div class="col">
+        <p><a href="{% url 'entry_update' entry.id %}">Edit Entry Info</a></p>
+        <p><a href="{% url 'entry_delete' entry.id %}">Delete Entry</a></p>
+    </div>
+</div>
+<hr />
+
+
+{%if notes%}
+    {% for note in notes %}
+        <div>{{ entry.content }}</div>
+    {% endfor %}
+    
+{% else %}
+<p>You have no notes yet.</p>
+
+{% endif %}
+<p><a href="#">Add a note</a></p>
+
 {% endblock %}

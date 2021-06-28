@@ -22,10 +22,11 @@ CompenDM is a django app to take the place of pen and paper campaign journals. I
 1. Established data needs for backend.
 2. Set up front end and back end applications in django and built basic Journal class. Migrated Journal class to test conection between front and backend.
 3. Set up login, signup and logout views, templates and urls for user so a user can start creating Journals.
-4. Created protected views to all CRUD functions for Journal. Set up urls and templates. Tested Journal CRUD.
+4. Created protected views to all CRUD functions for Journal and Entry models. Set up urls and templates. Tested Journal CRUD and routes.
+
 
 ### ERD for data needs
-![ERD Screenshot](assets/compenDM-ERD.png)
+![ERD Screenshot](main_app/static/assets/compenDM-ERD.png)
 
 ## Tech Stack
 - django
