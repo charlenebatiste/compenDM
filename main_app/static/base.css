@@ -4,10 +4,52 @@ body {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
 .nav__top{
-    background-color: #503F38;
+    background-color: #503f38c9;
+}
+
+.header-brand, .nav-link{
+    color: rgb(222, 222, 222);
 }
 
 .navbar-toggler-icon {
 	background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(184,191,185, 1)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.page__header{
+    text-align: center;
+}
+
+.profile__heading{
+    margin: 1%;
+}
+
+.createjournal-btn{
+    float: right;
+    padding: 1%;
+}
+
+.createjournal-link{
+    color: #412318;
+    font-weight: bold;
+}
+
+.journal__list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.card{
+    background-image: url('./assets/journalbg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 1%;
+    border: 1px solid rgb(50, 25, 17);
+}
+
+.footer_text{
+    margin: auto;
 }

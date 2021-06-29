@@ -2,21 +2,36 @@
 {% load static %}
 
 {% block content %}
+<div class="row profile__heading">
+    <div class="col"><p>Welcome back, {{ username }}</p></div>
+    <div class="col btn_container">
+    <div class="createjournal-btn">
+        <a class="createjournal-link" href="/journals/create" >Create New Journal</a>
+    </div>
+</div>
+</div>
+<hr />
 
-<h1>Welcome back, {{ username }}</h1>
-
-<h2>Journals</h2>
-
+<h2 class="page__header">Journals</h2>
 {%if journals%}
-{% for journal in journals %}
-    <p><a href="{% url 'journals_show' journal.id %}">{{ journal.title }}</a></p>
-{% endfor %}
+
+<div class="container">
+    <div class="row journal__list">
+        {% for journal in journals %}
+        <div class="card col-4" >
+            <div class="card-body">
+                <h5 class="card-title">{{ journal.title }}</h5>
+                <a href="{% url 'journals_show' journal.id %}" class="card-link">Go to Journal</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
 {% else %}
     <p>You have no journals yet.</p>
     {% endif %}
-    <div class="btn_container">
-        <a href="/journals/create" >Create a Campaign Journal</a>
-    </div>
+    
 
 
 

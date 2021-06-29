@@ -4,7 +4,7 @@
 {% block content %}
 <div class="row">
     <div class="col">
-        {{entry.name}}
+        <h1>{{entry.name}}</h1>
     </div>
     <div class="col">
         <p><a href="{% url 'entry_update' entry.id %}">Edit Entry Info</a></p>
@@ -12,7 +12,9 @@
     </div>
 </div>
 <hr />
-
+<div>
+    <h2>Session Notes</h2>
+</div>
 
 {%if notes%}
     {% for note in notes %}
@@ -23,6 +25,6 @@
 <p>You have no notes yet.</p>
 
 {% endif %}
-<p><a href="#">Add a note</a></p>
+<p><a href="/note/create">Add a note</a></p>
 
 {% endblock %}
