@@ -113,7 +113,8 @@ class JournalDelete(DeleteView):
 
 def entries_show(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
-    return render(request, 'entries/show.html', {'entry': entry})
+    notes = Note.objects.filter(entry=entry)
+    return render(request, 'entries/show.html', {'entry': entry, 'notes': notes})
 
 @method_decorator(login_required, name='dispatch')
 class EntryCreate(CreateView):
@@ -154,12 +155,7 @@ class NoteCreate(CreateView):
 
     def form_valid(self, form):
         self.object = form.save(commit=False)
-        self.object.user = self.request.user
         print(self.object)
         print(form.cleaned_data)
-        entries = Entry.objects.filter(name=self.request.entry)
-        if form.cleaned_data['entry'] in entries:
-            entry = Entry.objects.get(id=form.cleaned_data['entry'])
-            print(entry.id)
-            self.object.save()
-            return HttpResponseRedirect('/journals')
+        self.object.save()
+        return HttpResponseRedirect('/')

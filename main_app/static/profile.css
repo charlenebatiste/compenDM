@@ -1,0 +1,32 @@
+.profile__heading{
+    margin: 1%;
+}
+
+.createjournal-btn{
+    float: right;
+    padding: 1%;
+}
+
+.createjournal-link{
+    color: #412318;
+    font-weight: bold;
+}
+
+.journal__list{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.card{
+    background-image: url('./assets/journalbg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 1%;
+    border: 1px solid rgb(50, 25, 17);
+}
+
+.card-title{
+    text-align: center;
+}

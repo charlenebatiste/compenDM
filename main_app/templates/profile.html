@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block css_files %}
+<link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}"/>
+{% endblock %}
+
 {% block content %}
 <div class="row profile__heading">
     <div class="col"><p>Welcome back, {{ username }}</p></div>
