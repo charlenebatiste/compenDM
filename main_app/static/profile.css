@@ -51,6 +51,11 @@
     font-weight: bold;
 }
 
+.card-link:hover{
+    color: #412318;
+    text-shadow: -1px -1px 0 goldenrod, 1px -1px 0 goldenrod, -1px 1px 0 goldenrod, 1px 1px 0 goldenrod;
+}
+
 img{
     width: 40%;
 }

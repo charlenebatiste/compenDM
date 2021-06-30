@@ -1,0 +1,15 @@
+.note-create__btn, .entry-ud__btns{
+    color: #412318;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+.note-create__btn:hover, .entry-ud__btns:hover{
+    color: rgb(194, 123, 61);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-decoration: none;
+}
+
+.notes-header{
+    text-align: center;
+}

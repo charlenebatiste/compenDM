@@ -31,6 +31,10 @@ form{
     font-size: 1.2em;
 }
 
+.nav-link:hover{
+    color: goldenrod;
+    text-decoration: underline;
+}
 
 .footer_text{
     margin: auto;

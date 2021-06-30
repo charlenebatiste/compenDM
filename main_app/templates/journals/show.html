@@ -2,22 +2,28 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="heading">
-    <h1 class="heading-title">{{journal.title}} Campaign Journal</h1>
-    <div class="journal-ud__wrapper">
-    <div><a class="journal-ud__btns" href="{% url 'journals_update' journal.id %}">Change Name</a></div>
-    <div><a class="journal-ud__btns" href="{% url 'journals_delete' journal.id %}">DELETE Journal</a></div>
-</div>
+    <div class="head-left">
+        <h1 class="heading-title">{{journal.title}} Campaign Journal</h1>
+        <a class="journal-ud__btns" href="{% url 'journals_update' journal.id %}">Change Name</a>
+        <span>|</span>
+        <a class="journal-ud__btns" href="{% url 'journals_delete' journal.id %}">DELETE Journal</a>
+    </div>
+    <div class="head-right"><a class="entry-create__btn" href="/entry/create">Create A Session</a></div>
 </div>
 
+
 <hr />
-<div>
-<h2>Logs</h2>
+<div class="container-fluid">
+    <div class="row logs">
+        <h2 class="col offset-1"><u>Logs</u></h2>
+    </div>
+    <div class="sessions col-10">
 {%if entries%}
     <table class="table table-hover">
         <thead>
             <tr>
-                <th scope="col">Session</th>
-                <th scope="col">Date</th>
+                <th scope="col">Sessions</th>
+                <th scope="col">Dates</th>
             </tr>
         </thead>
         <tbody>
@@ -31,10 +37,10 @@
     </table>
     
 {% else %}
-<p>You have no entries yet.</p>
+<div class="no_data">You have no entries yet.</div>
+</div>
 
 {% endif %}
-<p><a href="/entry/create">Create an entry</a></p>
 
 </div>
 </section>

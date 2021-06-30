@@ -2,18 +2,21 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block content %}
-<div class="row">
-    <div class="col">
-        <h1>{{entry.name}}</h1>
+<div class="heading">
+    <div class="head-left">
+        <h1 class="heading-title">{{entry.name}}</h1>
+        <a class="entry-ud__btns" href="{% url 'entry_update' entry.id %}">Edit Entry Info</a>
+        <span>|</span>
+        <a class="entry-ud__btns" href="{% url 'entry_delete' entry.id %}">Delete Entry</a>
     </div>
-    <div class="col">
-        <p><a href="{% url 'entry_update' entry.id %}">Edit Entry Info</a></p>
-        <p><a href="{% url 'entry_delete' entry.id %}">Delete Entry</a></p>
+    <div class="head-right">
+        <a class="note-create__btn" href="/note/create">Add a note</a>
     </div>
 </div>
 <hr />
-<div>
-    <h2>Session Notes</h2>
+<div class="container-fluid">
+<div class="row">
+    <h2 class="col notes-header">Session Notes</h2>
 </div>
 
 {%if notes%}
@@ -22,9 +25,9 @@
     {% endfor %}
     
 {% else %}
-<p>You have no notes yet.</p>
-
+<div class="no_data">You have no notes yet.</div>
+</div>
 {% endif %}
-<p><a href="/note/create">Add a note</a></p>
+
 
 {% endblock %}

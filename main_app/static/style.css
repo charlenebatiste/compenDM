@@ -22,6 +22,11 @@
 	/* background-image: url("../../img/logo.png"); */
 }
 
+.nav-link:hover{
+    color: goldenrod;
+    text-decoration: underline;
+}
+
 .header-brand, .nav-link, .index__header{
     color: #B8BFB9;
 }
