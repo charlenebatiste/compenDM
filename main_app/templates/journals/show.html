@@ -2,12 +2,13 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="heading">
-    <h1>{{journal.title}} Campaign Journal</h1>
+    <h1 class="heading-title">{{journal.title}} Campaign Journal</h1>
+    <div class="journal-ud__wrapper">
+    <div><a class="journal-ud__btns" href="{% url 'journals_update' journal.id %}">Change Name</a></div>
+    <div><a class="journal-ud__btns" href="{% url 'journals_delete' journal.id %}">DELETE Journal</a></div>
 </div>
-<div>
-    <a href="{% url 'journals_update' journal.id %}">Change Name</a> | 
-    <a href="{% url 'journals_delete' journal.id %}">DELETE Journal</a>
 </div>
+
 <hr />
 <div>
 <h2>Logs</h2>
@@ -22,7 +23,7 @@
         <tbody>
             {% for entry in entries %}
                 <tr>
-                    <td><a href="{% url 'entries_show' entry.id %}">{{ entry.name }}</a></td>
+                    <td><a class="entry__names" href="{% url 'entries_show' entry.id %}">{{ entry.name }}</a></td>
                     <td>{{ entry.date }}</td>
                 </tr>
             {% endfor %}

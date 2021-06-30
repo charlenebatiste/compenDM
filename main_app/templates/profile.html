@@ -1,20 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block css_files %}
-<link rel="stylesheet" type="text/css" href="{% static 'profile.css' %}"/>
-{% endblock %}
 
 {% block content %}
 <div class="row profile__heading">
-    <div class="col"><p>Welcome back, {{ username }}</p></div>
     <div class="col btn_container">
     <div class="createjournal-btn">
         <a class="createjournal-link" href="/journals/create" >Create New Journal</a>
     </div>
 </div>
 </div>
-<hr />
 
 <h2 class="page__header">Journals</h2>
 {%if journals%}
@@ -24,8 +19,13 @@
         {% for journal in journals %}
         <div class="card col-4" >
             <div class="card-body">
+            <div class="card-image col-8">
+                <img src="{% static "assets/d20.png" %}" alt="1d20 die with transparent background" />
+            </div>
                 <h5 class="card-title">{{ journal.title }}</h5>
+                <div class="link-wrapper">
                 <a href="{% url 'journals_show' journal.id %}" class="card-link">Go to Journal</a>
+                </div>
             </div>
         </div>
         {% endfor %}

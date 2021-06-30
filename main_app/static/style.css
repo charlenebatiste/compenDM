@@ -8,6 +8,11 @@
     background-size: cover;
     background-position: center ;
 }
+
+.navbar{
+    font-family: 'Josefin Sans', sans-serif; 
+}
+
 .nav__top{
     background-image: linear-gradient(to bottom, rgb(28,26,25), transparent);
 }
@@ -23,6 +28,7 @@
 
 .index__header{
     padding: 5%;
+    font-family: 'Cinzel', serif;
 }
 
 .footer_text{

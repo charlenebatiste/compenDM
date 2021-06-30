@@ -1,0 +1,30 @@
+.heading{
+    display: flex;
+    justify-content: space-between;
+    margin: 1% 2% 0;
+}
+
+.journal-ud__wrapper{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.journal-ud__btns{
+    color: #412318;
+    font-weight: bold;
+}
+
+.journal-ud__btns:hover{
+    color: rgb(194, 123, 61);
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    text-decoration: none;
+}
+
+.entry__names{
+    color: #412318;
+    font-weight: bold;
+}
+h2{
+    margin-left: 2%;
+}

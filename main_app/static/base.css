@@ -5,6 +5,10 @@ body {
     background-size: cover;
 }
 
+.navbar{
+    font-family: 'Josefin Sans', sans-serif; 
+}
+
 .nav__top{
     background-color: #503f38c9;
 }
@@ -21,6 +25,11 @@ body {
     text-align: center;
 }
 
+form{
+    margin: 2%;
+    font-family: 'Josefin Sans', sans-serif; 
+    font-size: 1.2em;
+}
 
 
 .footer_text{
