@@ -147,18 +147,18 @@ class EntryDelete(DeleteView):
 
 
 # CRUD FOR NOTE MODEL
-@method_decorator(login_required, name='dispatch')
-class NoteCreate(CreateView):
-    model = Note
-    fields = '__all__'
-    success_url = '/'
+# @method_decorator(login_required, name='dispatch')
+# class NoteCreate(CreateView):
+#     model = Note
+#     fields = '__all__'
+#     success_url = '/'
 
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        print(self.object)
-        print(form.cleaned_data)
-        self.object.save()
-        return HttpResponseRedirect('/')
+#     def form_valid(self, form):
+#         self.object = form.save(commit=False)
+#         print(self.object)
+#         print(form.cleaned_data)
+#         self.object.save()
+#         return HttpResponseRedirect('/')
 
 # function to parse form data
 
@@ -167,7 +167,7 @@ def parse_data(data):
     if 'csrfmiddlewaretoken' in data[0]:
         product['csrfmiddlewaretoken'] = data[0].split('=')[1]
         data.pop(0)
-        print('( new data )', data)
+        # print('( new data )', data)
     print('( woah MULE )')
     for item in data:
         print('( item )', item)
@@ -176,7 +176,7 @@ def parse_data(data):
             new_key = item.split('=')[0]
             words = item.split('=')[1].split('+')
             new_words = (' ').join(words)
-            print('( final phase )', new_words)
+            # print('( final phase )', new_words)
             product[new_key] = new_words
         else:
             new_key = item.split('=')[0]
@@ -185,7 +185,7 @@ def parse_data(data):
 
     return product
 
-# update create entry
+# updated create entry view
 
 def entry_create(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
@@ -195,13 +195,10 @@ def entry_create(request, journal_id):
 
 def assoc_journal_entry(request):
     split_form_data = str(request.body).split('&')
-    print('entry split form data', split_form_data)
     x = parse_data(split_form_data)
-    print('( x )', x)
-    new_journal = int(x.get('journal').split("'")[0]) # 1
+    new_journal = int(x.get('journal').split("'")[0]) 
     x['journal'] = new_journal
 
-    print('( NEW X )', x)
     e = Entry(
         name=x.get('name'),
         date=x.get('date'),
@@ -209,8 +206,26 @@ def assoc_journal_entry(request):
     )
     e.save()
 
-    print('( NEW PLAYER )', e)
-
-    print('( proof )',Entry.objects.get(id=e.id))
-
     return HttpResponseRedirect('/journals/' + str(new_journal))
+
+# updated create note view
+
+def note_create(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    user = request.user
+
+    return render(request, 'createNote.html', { 'entry': entry, 'user': user })
+
+def assoc_entry_note(request):
+    split_form_data = str(request.body).split('&')
+    x = parse_data(split_form_data)
+    new_entry = int(x.get('entry').split("'")[0])
+    x['entry'] = new_entry
+
+    n = Note(
+        content=x.get('content'),
+        entry_id=x.get('entry')
+    )
+    n.save()
+
+    return HttpResponseRedirect('/entries/' + str(new_entry))

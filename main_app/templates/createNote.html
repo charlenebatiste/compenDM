@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ entry.name }}</h1>
+<form action="{% url 'assoc_entry_note' %}" method="post">
+    {% csrf_token %}
+    <label for="content">Content</label>
+    <input name='content' type="text" >
+    <input name="entry" type="hidden" value="{{ entry.id }}">
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}

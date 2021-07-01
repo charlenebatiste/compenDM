@@ -12,16 +12,16 @@ urlpatterns = [
     path('journals/<int:pk>/delete/', views.JournalDelete.as_view(), name='journals_delete'),
     path('journals/<int:journal_id>/', views.journals_show, name='journals_show'),
     path('entries/<int:entry_id>', views.entries_show, name='entries_show'),
-
     # updated entry create form route
     path('journals/<int:journal_id>/entry/create/', views.entry_create, name='entry_create'),
     path('journals/entries', views.assoc_journal_entry, name='assoc_journal_entry'),
-
-
-
-    # path('entries/<int:pk>/update/', views.EntryUpdate.as_view(), name='entry_update'),
+    #entry update and delete route
+    path('entries/<int:pk>/update/', views.EntryUpdate.as_view(), name='entry_update'),
     path('entries/<int:pk>/delete/', views.EntryDelete.as_view(), name='entry_delete'),
-    path('note/create/', views.NoteCreate.as_view(), name='note_create'),
+
+    # updated note create form route
+    path('entry/<int:entry_id>/note/create/', views.note_create, name='note_create'),
+    path('entries/notes', views.assoc_entry_note, name='assoc_entry_note'),
 
 
 ]
