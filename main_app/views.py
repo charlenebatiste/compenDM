@@ -116,23 +116,23 @@ def entries_show(request, entry_id):
     notes = Note.objects.filter(entry=entry)
     return render(request, 'entries/show.html', {'entry': entry, 'notes': notes})
 
-@method_decorator(login_required, name='dispatch')
-class EntryCreate(CreateView):
-    model = Entry
-    fields = '__all__'
-    success_url = '/journals'
+# @method_decorator(login_required, name='dispatch')
+# class EntryCreate(CreateView):
+#     model = Entry
+#     fields = '__all__'
+#     success_url = '/journals'
 
-    def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.user = self.request.user
-        print(self.object)
-        print(form.cleaned_data)
-        journals = Journal.objects.filter(user=self.request.user)
-        if form.cleaned_data['journal'] in journals:
-            journal = Journal.objects.get(title=form.cleaned_data['journal'])
-            print(journal.id)
-            self.object.save()
-            return HttpResponseRedirect('/journals/' + str(journal.id))
+#     def form_valid(self, form):
+#         self.object = form.save(commit=False)
+#         self.object.user = self.request.user
+#         print(self.object)
+#         print(form.cleaned_data)
+#         journals = Journal.objects.filter(user=self.request.user)
+#         if form.cleaned_data['journal'] in journals:
+#             journal = Journal.objects.get(title=form.cleaned_data['journal'])
+#             print(journal.id)
+#             self.object.save()
+#             return HttpResponseRedirect('/journals/' + str(journal.id))
         
 @method_decorator(login_required, name='dispatch')
 class EntryUpdate(UpdateView):
@@ -159,3 +159,58 @@ class NoteCreate(CreateView):
         print(form.cleaned_data)
         self.object.save()
         return HttpResponseRedirect('/')
+
+# function to parse form data
+
+def parse_data(data):
+    product = {}
+    if 'csrfmiddlewaretoken' in data[0]:
+        product['csrfmiddlewaretoken'] = data[0].split('=')[1]
+        data.pop(0)
+        print('( new data )', data)
+    print('( woah MULE )')
+    for item in data:
+        print('( item )', item)
+        # new_phrase = None
+        if '+' in item:
+            new_key = item.split('=')[0]
+            words = item.split('=')[1].split('+')
+            new_words = (' ').join(words)
+            print('( final phase )', new_words)
+            product[new_key] = new_words
+        else:
+            new_key = item.split('=')[0]
+            new_value = item.split('=')[1]
+            product[new_key] = new_value
+
+    return product
+
+# update create entry
+
+def entry_create(request, journal_id):
+    journal = Journal.objects.get(id=journal_id)
+    user = request.user
+
+    return render(request, 'createEntry.html', { 'journal': journal, 'user': user })
+
+def assoc_journal_entry(request):
+    split_form_data = str(request.body).split('&')
+    print('entry split form data', split_form_data)
+    x = parse_data(split_form_data)
+    print('( x )', x)
+    new_journal = int(x.get('journal').split("'")[0]) # 1
+    x['journal'] = new_journal
+
+    print('( NEW X )', x)
+    e = Entry(
+        name=x.get('name'),
+        date=x.get('date'),
+        journal_id=x.get('journal')
+    )
+    e.save()
+
+    print('( NEW PLAYER )', e)
+
+    print('( proof )',Entry.objects.get(id=e.id))
+
+    return HttpResponseRedirect('/journals/' + str(new_journal))

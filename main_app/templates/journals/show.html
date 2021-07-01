@@ -8,7 +8,7 @@
         <span>|</span>
         <a class="journal-ud__btns" href="{% url 'journals_delete' journal.id %}">DELETE Journal</a>
     </div>
-    <div class="head-right"><a class="entry-create__btn" href="/entry/create">Create A Session</a></div>
+    <div class="head-right"><a class="entry-create__btn" href="/journals/{{ journal.id }}/entry/create/">Create A Session</a></div>
 </div>
 
 

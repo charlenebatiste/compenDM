@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ journal.title }}</h1>
+<form action="{% url 'assoc_journal_entry' %}" method="post">
+    {% csrf_token %}
+    <label for="name">Name</label>
+    <input name='name' type="text" >
+    <label for="date">Date</label>
+    <input name='date' type="date" >
+    <input name="journal" type="hidden" value="{{ journal.id }}">
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
