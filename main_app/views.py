@@ -68,12 +68,13 @@ def signup(request):
         return render(request, 'signup.html', {'form': form })
 
 # CRUD FOR JOURNAL MODEL
-
+@login_required
 def journals_index(request):
     journals = Journal.objects.all()
     data = { 'journals': journals }
     return render(request, 'journals/index.html', data)
 
+@login_required
 def journals_show(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
     entries = Entry.objects.filter(journal=journal_id)
@@ -110,7 +111,7 @@ class JournalDelete(DeleteView):
     success_url = '/'
 
 # CRUD FOR ENTRY MODEL
-
+@login_required
 def entries_show(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     notes = Note.objects.filter(entry=entry)
@@ -146,22 +147,8 @@ class EntryDelete(DeleteView):
     success_url = '/'
 
 
-# CRUD FOR NOTE MODEL
-# @method_decorator(login_required, name='dispatch')
-# class NoteCreate(CreateView):
-#     model = Note
-#     fields = '__all__'
-#     success_url = '/'
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         print(self.object)
-#         print(form.cleaned_data)
-#         self.object.save()
-#         return HttpResponseRedirect('/')
-
 # function to parse form data
-
+@login_required
 def parse_data(data):
     product = {}
     if 'csrfmiddlewaretoken' in data[0]:
@@ -186,13 +173,14 @@ def parse_data(data):
     return product
 
 # updated create entry view
-
+@login_required
 def entry_create(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
     user = request.user
 
     return render(request, 'createEntry.html', { 'journal': journal, 'user': user })
 
+@login_required
 def assoc_journal_entry(request):
     split_form_data = str(request.body).split('&')
     x = parse_data(split_form_data)
@@ -208,14 +196,17 @@ def assoc_journal_entry(request):
 
     return HttpResponseRedirect('/journals/' + str(new_journal))
 
-# updated create note view
 
+#CRUD ROUTES FOR NOTE MODEL
+# updated create note view
+@login_required
 def note_create(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     user = request.user
 
     return render(request, 'createNote.html', { 'entry': entry, 'user': user })
 
+@login_required
 def assoc_entry_note(request):
     split_form_data = str(request.body).split('&')
     x = parse_data(split_form_data)
@@ -229,3 +220,14 @@ def assoc_entry_note(request):
     n.save()
 
     return HttpResponseRedirect('/entries/' + str(new_entry))
+
+@method_decorator(login_required, name='dispatch')
+class NoteUpdate(UpdateView):
+    model = Note
+    fields = ['content']
+    success_url = '/'
+
+@method_decorator(login_required, name='dispatch')
+class NoteDelete(DeleteView):
+    model = Note
+    success_url = '/'

@@ -23,5 +23,8 @@ urlpatterns = [
     path('entry/<int:entry_id>/note/create/', views.note_create, name='note_create'),
     path('entries/notes', views.assoc_entry_note, name='assoc_entry_note'),
 
+    #note update and delete routes
+    path('notes/<int:pk>/update/', views.NoteUpdate.as_view(), name='note_update'),
+    path('notes/<int:pk>/delete/', views.NoteDelete.as_view(), name='note_delete'),
 
 ]

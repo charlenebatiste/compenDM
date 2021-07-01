@@ -22,6 +22,20 @@
 {%if notes%}
     {% for note in notes %}
         <div>{{ note.content }}</div>
+        <div>
+        
+    <div>
+        <a href="{% url 'note_update' note.id %}">Edit Note</a>
+        <span>|</span>
+        <a href="{% url 'note_delete' note.id %}">Delete Note</a>
+    </div>
+    </div>
+
+
+
+
+
+        </div>
     {% endfor %}
     
 {% else %}

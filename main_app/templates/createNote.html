@@ -5,7 +5,8 @@
 <form action="{% url 'assoc_entry_note' %}" method="post">
     {% csrf_token %}
     <label for="content">Content</label>
-    <input name='content' type="text" >
+    <textarea name='content' rows="4" cols="50">
+</textarea>
     <input name="entry" type="hidden" value="{{ entry.id }}">
     <input type="submit" value="Submit">
 </form>
