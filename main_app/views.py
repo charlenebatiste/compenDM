@@ -241,3 +241,49 @@ class NoteUpdate(UpdateView):
 class NoteDelete(DeleteView):
     model = Note
     success_url = '/'
+
+
+
+#CRUD ROUTES FOR ENCOUNTER MODEL
+
+#CREATE ENCOUNTER VIEW
+
+
+def encounter_create(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    user = request.user
+
+    return render(request, 'createEncounter.html', { 'entry': entry, 'user': user })
+
+#FUNCTION TO ESTABLISH ASSOCIATION BETWEEN ENTRY AND ENCOUNTER MODELS
+def assoc_entry_encounter(request):
+    split_form_data = str(request.body).split('&')
+    x = parse_data(split_form_data)
+    new_entry = int(x.get('entry').split("'")[0])
+    x['entry'] = new_entry
+
+    enc = Encounter(
+        name=x.get('name'),
+        entry_id=x.get('entry')
+    )
+    enc.save()
+
+    return HttpResponseRedirect('/entries/' + str(new_entry))
+
+#UPDATES SPECIFIC Encounter
+@method_decorator(login_required, name='dispatch')
+class EncounterUpdate(UpdateView):
+    model = Encounter
+    fields = ['content']
+
+    def form_valid(self, form):
+        form.save()
+        entry = Entry.objects.get(id=self.object.entry_id)
+        # print(entry.id)
+        return HttpResponseRedirect('/entries/' + str(entry.id))
+
+#DELETES SPECIFIC Encounter
+@method_decorator(login_required, name='dispatch')
+class EncounterDelete(DeleteView):
+    model = Encounter
+    success_url = '/'

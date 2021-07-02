@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>{{ entry.title }}</h1>
+<form action="{% url 'assoc_entry_encounter' %}" method="post">
+    {% csrf_token %}
+    <label for="name">Name</label>
+    <input name='name' type="text" >
+    <label for="info">Details</label>
+    <textarea name='info' rows="4" cols="50">
+</textarea>
+    <input name="entry" type="hidden" value="{{ entry.id }}">
+    <input type="submit" value="Submit">
+</form>
+
+{% endblock %}
