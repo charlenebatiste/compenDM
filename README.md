@@ -26,11 +26,19 @@ CompenDM is a django app to take the place of pen and paper campaign journals. I
 4. Created protected views to all CRUD functions for Journal and Entry models. Set up urls and templates. Tested Journal CRUD and routes.
 5. Added Note model, urls, views and template. Tested CRUD routes.
 6. Refactored create forms for Entry and Note models to pass id of association down so users don't have to search for their entry/note on forms; it autofills.
-7. Styled
-8. Updated redirects*** still needs to be done
+7. Added styling.
+8. Updated successful_url redirects.
 
 ### ERD for data needs
 ![ERD Screenshot](main_app/static/assets/compenDM-ERD.png)
+
+### Screenshots of App
+
+#### Homepage
+![homepage](main_app/static/assets/homepage.png)
+
+#### Show Page for entries of a specific Journal
+![logPage](main_app/static/assets/log-page.png)
 
 ## Known Issues
 Although associations were made on the building of each model, django forms, when using the django Create/Edit/DeleteModel templates, have no idea which user is using them or which associated model the current model's form belongs to. On testing that meant every time a user wanted to add an entry to a journal or add a note to an entry they were required to look through a dropdown (that contained every journal or entry in the database), and select the corresponding Model in order to submit a form. Not only was that incredibly cumbersome to the user it also opened up private user data to any logged in user. 
@@ -61,7 +69,7 @@ def parse_data(data):
 
     return product
 
-# FUNCTION TO CREATE ASSOCIATION BETWEEN JOURNA AND ENTRY MODELS
+# FUNCTION TO CREATE ASSOCIATION BETWEEN JOURNAL AND ENTRY MODELS
 def assoc_journal_entry(request):
     split_form_data = str(request.body).split('&')
     x = parse_data(split_form_data)

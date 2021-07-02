@@ -13,3 +13,13 @@
 .notes-header{
     text-align: center;
 }
+
+.notes__row{
+    justify-content: space-around;
+}
+
+.notes__wrapper{
+    display: flex;
+    justify-content: space-between;
+    margin: 1% 0;
+}
