@@ -61,14 +61,6 @@ def parse_data(data):
 
     return product
 
-# Create Entry View
-
-def entry_create(request, journal_id):
-    journal = Journal.objects.get(id=journal_id)
-    user = request.user
-
-    return render(request, 'createEntry.html', { 'journal': journal, 'user': user })
-
 # FUNCTION TO CREATE ASSOCIATION BETWEEN JOURNA AND ENTRY MODELS
 def assoc_journal_entry(request):
     split_form_data = str(request.body).split('&')

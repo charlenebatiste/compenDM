@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 
-# Create your views here.
+# VIEWS
 
 #function to render user's profile page // login required
 @login_required
@@ -67,14 +67,16 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form })
 
+
 # CRUD FOR JOURNAL MODEL
 
+# SHOWS ALL JOURNALS
 def journals_index(request):
     journals = Journal.objects.all()
     data = { 'journals': journals }
     return render(request, 'journals/index.html', data)
 
-
+#SHOWS SPECIFIC JOURNAL
 def journals_show(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
     entries = Entry.objects.filter(journal=journal_id)
@@ -83,7 +85,7 @@ def journals_show(request, journal_id):
         'entries': entries }
     return render(request, 'journals/show.html', data)
 
-# forms - generic from django
+# forms - generic from django // CREATES NEW JOURNAL
 @method_decorator(login_required, name='dispatch')
 class JournalCreate(CreateView):
     model = Journal
@@ -94,7 +96,8 @@ class JournalCreate(CreateView):
         self.object.user = self.request.user
         self.object.save()
         return HttpResponseRedirect('/journals/' + str(self.object.pk))
-        
+
+#UPDATES JOURNAL
 @method_decorator(login_required, name='dispatch')
 class JournalUpdate(UpdateView):
     model = Journal
@@ -105,47 +108,41 @@ class JournalUpdate(UpdateView):
         self.object.save()
         return HttpResponseRedirect('/journals/' + str(self.object.pk))
 
+#DELETES JOURNAL
 @method_decorator(login_required, name='dispatch')
 class JournalDelete(DeleteView):
     model = Journal
     success_url = '/'
 
+
+#~~~~~~~~~~~~~~~~~~#
+
 # CRUD FOR ENTRY MODEL
 
+#SHOWS SPECIFIC ENTRY
 def entries_show(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     notes = Note.objects.filter(entry=entry)
     return render(request, 'entries/show.html', {'entry': entry, 'notes': notes})
 
-# @method_decorator(login_required, name='dispatch')
-# class EntryCreate(CreateView):
-#     model = Entry
-#     fields = '__all__'
-#     success_url = '/journals'
-
-#     def form_valid(self, form):
-#         self.object = form.save(commit=False)
-#         self.object.user = self.request.user
-#         print(self.object)
-#         print(form.cleaned_data)
-#         journals = Journal.objects.filter(user=self.request.user)
-#         if form.cleaned_data['journal'] in journals:
-#             journal = Journal.objects.get(title=form.cleaned_data['journal'])
-#             print(journal.id)
-#             self.object.save()
-#             return HttpResponseRedirect('/journals/' + str(journal.id))
-        
+#UPDATES SPECIFIC ENTRY
 @method_decorator(login_required, name='dispatch')
 class EntryUpdate(UpdateView):
     model = Entry
     fields = ['name', 'date']
-    success_url = '/'
+    # success_url = '/'
+    
+    def form_valid(self, form):
+        form.save()
+        return HttpResponseRedirect('/entries/' + str(self.object.pk))
 
+#DELETES SPECIFIC ENTRY
 @method_decorator(login_required, name='dispatch')
 class EntryDelete(DeleteView):
     model = Entry
     success_url = '/'
 
+#~~~~~~~~~~~~~~~#
 
 # function to parse form data
 
@@ -155,9 +152,9 @@ def parse_data(data):
         product['csrfmiddlewaretoken'] = data[0].split('=')[1]
         data.pop(0)
         # print('( new data )', data)
-    print('( woah MULE )')
+    # print('( woah MULE )')
     for item in data:
-        print('( item )', item)
+        # print('( item )', item)
         # new_phrase = None
         if '+' in item:
             new_key = item.split('=')[0]
@@ -172,7 +169,9 @@ def parse_data(data):
 
     return product
 
-# updated create entry view
+#~~~~~~~~~~~~~~~~~#
+
+# CREATE ENTRY VIEW
 
 def entry_create(request, journal_id):
     journal = Journal.objects.get(id=journal_id)
@@ -181,6 +180,7 @@ def entry_create(request, journal_id):
     return render(request, 'createEntry.html', { 'journal': journal, 'user': user })
 
 
+#FUNCTION TO ESTABLISH ASSOCIATION BETWEEN JOURNAL AND ENTRY MODELS
 def assoc_journal_entry(request):
     split_form_data = str(request.body).split('&')
     x = parse_data(split_form_data)
@@ -198,7 +198,8 @@ def assoc_journal_entry(request):
 
 
 #CRUD ROUTES FOR NOTE MODEL
-# updated create note view
+
+#CREATE NOTE VIEW
 
 def note_create(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
@@ -206,7 +207,7 @@ def note_create(request, entry_id):
 
     return render(request, 'createNote.html', { 'entry': entry, 'user': user })
 
-
+#FUNCTION TO ESTABLISH ASSOCIATION BETWEEN ENTRY AND NOTE MODELS
 def assoc_entry_note(request):
     split_form_data = str(request.body).split('&')
     x = parse_data(split_form_data)
@@ -221,12 +222,19 @@ def assoc_entry_note(request):
 
     return HttpResponseRedirect('/entries/' + str(new_entry))
 
+#UPDATES SPECIFIC NOTE
 @method_decorator(login_required, name='dispatch')
 class NoteUpdate(UpdateView):
     model = Note
     fields = ['content']
-    success_url = '/'
 
+    def form_valid(self, form):
+        form.save()
+        entry = Entry.objects.get(id=self.object.entry_id)
+        # print(entry.id)
+        return HttpResponseRedirect('/entries/' + str(entry.id))
+
+#DELETES SPECIFIC NOTE
 @method_decorator(login_required, name='dispatch')
 class NoteDelete(DeleteView):
     model = Note
