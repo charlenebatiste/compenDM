@@ -10,7 +10,7 @@
     text-decoration: none;
 }
 
-.notes-header{
+.notes-header, .encounters-header{
     text-align: center;
 }
 

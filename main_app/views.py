@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from .models import Journal, Entry, Note
+from .models import Encounter, Journal, Entry, Note
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -124,7 +124,8 @@ class JournalDelete(DeleteView):
 def entries_show(request, entry_id):
     entry = Entry.objects.get(id=entry_id)
     notes = Note.objects.filter(entry=entry)
-    return render(request, 'entries/show.html', {'entry': entry, 'notes': notes})
+    encounters = Encounter.objects.filter(entry=entry)
+    return render(request, 'entries/show.html', {'entry': entry, 'notes': notes, 'encounters': encounters})
 
 #UPDATES SPECIFIC ENTRY
 @method_decorator(login_required, name='dispatch')

@@ -24,3 +24,11 @@ class Note(models.Model):
 
     def __str__(self):
         return str(self.content)
+
+class Encounter(models.Model):
+    name = models.CharField(max_length=75)
+    info = models.TextField()
+    entry = models.ForeignKey(Entry, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.name)

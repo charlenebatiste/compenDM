@@ -14,6 +14,7 @@
     </div>
 </div>
 <hr />
+
 <div class="container-fluid">
     <div class="row">
         <h2 class="col notes-header">Session Notes</h2>
@@ -45,6 +46,45 @@
         
     {% else %}
         <div class="no_data">You have no notes yet.</div>
+</div>
+    {% endif %}
+
+
+<hr />
+
+<div class="row">
+        <h2 class="col encounters-header">Session Encounters</h2>
+    </div>
+
+    {%if encounters%}
+        {% for encounter in encounters %}
+            <div class="row encounters__row">
+                <div class="encounters__wrapper col-10">
+                <ul>
+                    <li>
+                        {{ encounter.name }}
+                    </li>
+                    <li>
+                        {{ encounter.info }}
+                    </li>
+                </ul>
+                    <div class="dropdown">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
+                            options
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                            <li><a class="dropdown-item" type="button" href="{% url 'encounter_update' encounter.id %}">Edit encounter</a></li>
+                            <li><a class="dropdown-item" type="button" href="{% url 'encounter_delete' encounter.id %}">Delete Note</a></li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        {% endfor %}
+        
+    {% else %}
+        <div class="no_data">You have no encounters.</div>
 </div>
     {% endif %}
 
