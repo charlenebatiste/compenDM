@@ -264,6 +264,7 @@ def assoc_entry_encounter(request):
 
     enc = Encounter(
         name=x.get('name'),
+        info=x.get('info'),
         entry_id=x.get('entry')
     )
     enc.save()
@@ -274,7 +275,7 @@ def assoc_entry_encounter(request):
 @method_decorator(login_required, name='dispatch')
 class EncounterUpdate(UpdateView):
     model = Encounter
-    fields = ['content']
+    fields = ['name', 'info']
 
     def form_valid(self, form):
         form.save()

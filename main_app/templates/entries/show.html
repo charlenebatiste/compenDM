@@ -60,32 +60,25 @@
     </div>
 
     {%if encounters%}
+    <div class="row encounters__row">
         {% for encounter in encounters %}
-            <div class="row encounters__row">
-                <div class="encounters__wrapper col-10">
-                <ul>
-                    <li>
-                        {{ encounter.name }}
-                    </li>
-                    <li>
-                        {{ encounter.info }}
-                    </li>
-                </ul>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-bs-toggle="dropdown" aria-expanded="false">
-                            options
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                            <li><a class="dropdown-item" type="button" href="{% url 'encounter_update' encounter.id %}">Edit encounter</a></li>
-                            <li><a class="dropdown-item" type="button" href="{% url 'encounter_delete' encounter.id %}">Delete Note</a></li>
-                            
-                        </ul>
+            
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body body-styles">
+                        <div class="encounters-txt__wrapper">
+                            <h5 class="card-title">{{ encounter.name }}</h5>
+                            <p class="card-text">{{ encounter.info }}</p>
+                        </div>
+                        <div class="encounter-btns-wrapper">
+                            <a href="{% url 'encounter_update' encounter.id %}" class="card-link">Edit</a>
+                            <a href="{% url 'encounter_delete' encounter.id %}" class="card-link">Delete</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+        
 
         {% endfor %}
-        
+            </div>
     {% else %}
         <div class="no_data">You have no encounters.</div>
 </div>

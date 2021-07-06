@@ -7,7 +7,12 @@ import dj_database_url
 # config = dotenv_values(".env")
 
 # print('( config )', environ)
+
+#production secret key
 SECRET_KEY = environ['SECRET_KEY']
+
+#development secret key
+# SECRET_KEY = ''
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
