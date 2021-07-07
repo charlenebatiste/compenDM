@@ -1,3 +1,7 @@
+.index-wrapper{
+    background-color: black;
+}
+
 .footer_text{
     margin: 0;
 }
@@ -32,8 +36,20 @@
 }
 
 .index__header{
-    padding: 5%;
+    padding: 5% 5% 0 5%;
     font-family: 'Cinzel', serif;
+}
+
+.index__subheader{
+    padding-left: 5%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+.subheader_point{
+    padding: 1%;
+    font-family: 'Cinzel', serif;
+    color: #B8BFB9;
 }
 
 .footer_text{

@@ -105,6 +105,7 @@ Additional known issues are:
 ## Tech Stack
 - django
 - Bootstrap v5.0
+- Animate.css
 
 ## Set Up
 1. Fork and Clone this respository to your local machine
